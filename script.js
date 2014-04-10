@@ -29,15 +29,30 @@ $(document).ready(function() {
 	}
 	
 	//shuffle the deck
-	
+    _.shuffle(deck);
 	
 	var cards_player_1 = [];
 	var cards_player_2 = [];
 	//divide out the cards into the two arrays
-	
+	for (var k =0; k < deck.length; i++){
+        if (k % 2 === 0) {
+            cards_player_1.push(deck[k]);
+        }  else {
+            cards_player_2.push(deck[k]);
+        }
+
+    }
+
 	
 	//create a function (algorithm) called "war" that takes two cards as parameters, compares them and returns a winner. A tie should return false.
-	function war() {
+	function war(card1, card2) {
+        if (card1.number > card2.number) {
+            return card1;
+        } elseif (card1.number < card2.number) {
+            return card2;
+        } else {
+            return false;
+        }
 	}
 	
 	
@@ -45,7 +60,13 @@ $(document).ready(function() {
 		//compare the cards
 		//give the winner both cards (at end of deck)
 	function play() {
-		
+
+        if (war(cards_player_1[0], cards_player_2[0])== cards_player_1[0]) {
+             cards_player_1.push(cards_player_1.shift(),cards_player_2.shift() );
+
+        } else {
+            cards_player_2.push(cards_player_2.shift(),cards_player_1.shift() );
+        }
 		//this function (defined below) will continue to the next turn
 		advance();
 	}
